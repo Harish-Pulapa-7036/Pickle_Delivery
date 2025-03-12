@@ -85,21 +85,12 @@ const CartItem = ({ item, handleQuantityOrWeight, handleDeleteCartItem }) => {
     </>
 
 }
-const CartList = ({ cartItems, handleQuantityOrWeight, handleDeleteCartItem, totalPrice }) => {
+const CartList = ({ cartItems, handleQuantityOrWeight, handleDeleteCartItem, totalPrice,placeOrder }) => {
     // Function to handle order placement
-    const [orderPlaced, setOrderPlaced] = useState(false);
+    
         const navigate = useNavigate();
     
-    const placeOrder = () => {
-        setOrderPlaced(true);
-
-        // // Play order placed sound
-        const audio = new Audio('/sounds/order-sound.wav'); // Place file in public/sounds folder
-        audio.play();
-
-        // Automatically close popup after 3 seconds
-        setTimeout(() => setOrderPlaced(false), 3000);
-    };
+ 
     return (
         <>
             <div style={{ maxHeight: "70vh", marginBottom:"4rem",boxSizing:"border-box" }} className="cartList-container invisibleScroller">
@@ -165,7 +156,6 @@ const CartList = ({ cartItems, handleQuantityOrWeight, handleDeleteCartItem, tot
                 : null
             }
             
-            <OrderPopup setOrderPlaced={setOrderPlaced} orderPlaced={orderPlaced} />
         </>
     )
 }

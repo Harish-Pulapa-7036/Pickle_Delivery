@@ -15,20 +15,25 @@ import OrdersList from "./pages/OrderList";
 import axios from "axios";
 import Loader from "./components/Loader";
 import NotFound from "./pages/NotFound";
+import OrderPopup from "./components/OrderPopup";
 
 function App() {
     const navigate = useNavigate();
     const [showLoader, setShowLoader] = useState(false);
     const [cartItems, setCartItems] = useState([])
+    const [orderPlaced, setOrderPlaced] = useState(false);
+    const [orderList, setOrderList] = useState([]);
+
 
     useEffect(() => {
         if (sessionStorage.getItem("token")) {
             // navigate('/')
             getCartItems();
-        } 
+            getOrderList();
+        }
         // else navigate('/login')
     }, [navigate])
- 
+
     const getCartItems = async () => {
         setShowLoader(true);
 
@@ -54,7 +59,8 @@ function App() {
             productName: productName,
             pricePerKg: pricePerKg,
             weight: "1kg",
-            quantity: 1
+            quantity: 1,
+            actualPrice:pricePerKg
         }
         let url = 'https://pickle-backend-2xil.onrender.com/api/v1/pickle/update-cart'
         try {
@@ -73,27 +79,27 @@ function App() {
         }
     }
 
-    const handleQuantityOrWeight=async(e,product,type,newWeight)=>{
-        console.log(e.target.value,product);
-        
+    const handleQuantityOrWeight = async (e, product, type, newWeight) => {
+        console.log(e.target.value, product);
+
         setShowLoader(true)
         let body;
-        if(type === "weight"){
+        if (type === "weight") {
             body = {
-            
+
                 productId: product._id,
                 weight: e.target.value,
                 quantity: product.quantity
             }
-        }else if(type === "increment") {
+        } else if (type === "increment") {
             body = {
-            
+
                 productId: product._id,
-                weight:product.weight,
-                quantity: product.quantity >=1 && product.quantity+1 
+                weight: product.weight,
+                quantity: product.quantity >= 1 && product.quantity + 1
             }
         }
-        else if(type === "decrement") {
+        else if (type === "decrement") {
             if (product.quantity <= 1) {
                 setShowLoader(false)
                 return;  // Exit the function if quantity is already 1
@@ -104,8 +110,8 @@ function App() {
                 weight: product.weight,
                 quantity: product.quantity - 1
             };
-        }else return
-     
+        } else return
+       
         let url = 'https://pickle-backend-2xil.onrender.com/api/v1/pickle/update-product'
         try {
             let response = await axios.put(url, body, {
@@ -113,7 +119,6 @@ function App() {
                     token: sessionStorage.getItem('token')   // <- Add the token in headers
                 }
             })
-            console.log(response);
             setCartItems(response.data.cart)
             setShowLoader(false)
         } catch (error) {
@@ -122,9 +127,9 @@ function App() {
 
         }
     }
-    const handleDeleteCartItem=async(productId)=>{
-        
-       let url = `https://pickle-backend-2xil.onrender.com/api/v1/pickle/deleteCart-product?productId=${productId}`
+    const handleDeleteCartItem = async (productId) => {
+
+        let url = `https://pickle-backend-2xil.onrender.com/api/v1/pickle/deleteCart-product?productId=${productId}`
         try {
             let response = await axios.delete(url, {
                 headers: {
@@ -140,11 +145,56 @@ function App() {
 
         }
     }
+    const getOrderList = async ()=>{
+        setShowLoader(true);
+
+        let url = 'https://pickle-backend-2xil.onrender.com/api/v1/pickle/order-list'
+        try {
+            let response = await axios.get(url, {
+                headers: {
+                    token: sessionStorage.getItem('token')   // <- Add the token in headers
+                }
+            })
+            setOrderList(response.data.orders)
+            setShowLoader(false)
+
+        } catch (error) {
+            setShowLoader(false)
+            alert(error.response?.data?.message || 'error to load orders, please try again.');
+
+        }
+    }
+    const placeOrder = async () => {
+
+        let url = `https://pickle-backend-2xil.onrender.com/api/v1/pickle/send-order`
+        try {
+            await axios.post(url, {}, {
+                headers: {
+                    token: sessionStorage.getItem('token')   // <- Add the token in headers
+                }
+            })
+            navigate('/orders')
+            setShowLoader(false)
+            setOrderPlaced(true);
+            // getOrderList()
+            // // Play order placed sound
+            const audio = new Audio('/sounds/order-sound.wav'); // Place file in public/sounds folder
+            audio.play();
+
+            // Automatically close popup after 3 seconds
+            setTimeout(() => setOrderPlaced(false), 3000);
+        } catch (error) {
+            setShowLoader(false)
+            alert(error.response?.data?.message || 'failed to add to cart, please try again.');
+
+        }
+
+    };
     return (
         <div className="app-container" style={{
             // backgroundImage: "url('/images/background_pickle.jpg')"
         }}>
-            <Header  cartCount={cartItems?.products?.length}/>
+            <Header cartCount={cartItems?.products?.length} />
             <main className="main-content">
                 <Routes>
                     <Route path="/" element={<PrivateRoute><PickleList onAddToCart={onAddToCart} /></PrivateRoute>} />
@@ -153,13 +203,14 @@ function App() {
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
                     {/* <Route path="/picklelist" element={<PrivateRoute><PickleList onAddToCart={onAddToCart} /></PrivateRoute>} /> */}
-                    <Route path="/cart" element={<PrivateRoute><CartList handleQuantityOrWeight={handleQuantityOrWeight} handleDeleteCartItem={handleDeleteCartItem} cartItems={cartItems?.products} totalPrice={cartItems.totalPrice}/></PrivateRoute>} />
-                    <Route path="/orders" element={<PrivateRoute><OrdersList /></PrivateRoute>} />
+                    <Route path="/cart" element={<PrivateRoute><CartList placeOrder={placeOrder} handleQuantityOrWeight={handleQuantityOrWeight} handleDeleteCartItem={handleDeleteCartItem} cartItems={cartItems?.products} totalPrice={cartItems.totalPrice} /></PrivateRoute>} />
+                    <Route path="/orders" element={<PrivateRoute><OrdersList ordersList={orderList}/></PrivateRoute>} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
             {/* <Footer /> */}
             <Loader showLoader={showLoader} />
+            <OrderPopup setOrderPlaced={setOrderPlaced} orderPlaced={orderPlaced} />
 
         </div>
     );
