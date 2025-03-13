@@ -7,12 +7,10 @@ import EmailIcon from "@mui/icons-material/Email";
 
 const Contact = () => {
   return (
-    <Container maxWidth="sm" sx={{ py: 5, px: 2, background: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <Card 
         elevation={10} 
         sx={{ 
           borderRadius: "20px", 
-          overflow: "hidden", 
           backgroundColor: "#fff", 
           border: "none", 
           boxShadow: "10px 10px 30px rgba(0, 0, 0, 0.3)",
@@ -61,7 +59,6 @@ const Contact = () => {
           </Box>
         </CardContent>
       </Card>
-    </Container>
   );
 };
 
