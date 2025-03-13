@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import OrderPopup from "../components/OrderPopup";
 import { useNavigate } from "react-router-dom";
+import { getImageSrcByName } from "../imageHelper";
 const CartItem = ({ item, handleQuantityOrWeight, handleDeleteCartItem }) => {
     const [selectedWeight, setSelectedWeight] = useState('250gms');
     const [quantity, setQuantity] = useState(1);
@@ -25,12 +26,13 @@ const CartItem = ({ item, handleQuantityOrWeight, handleDeleteCartItem }) => {
         <Card sx={{ border: "3px solid white", fontFamily: 'Poppins, sans-serif', borderRadius: "20px" }}>
             <CardContent style={{
                 display: "flex",
-                marginLeft: "8px"
+                marginLeft: "8px",
+                
 
             }}>
                 <CardMedia
-                    sx={{ width: "100px", height: "80px" }}
-                    image="/images/mango-pickle.jpg"
+                    sx={{ width: "100px", height: "80px" ,objectFit: "cover"}}
+                    image={getImageSrcByName(item.productName)}
                     title="Mango Pickle"
                 />
                 <CardContent sx={{ fontFamily: 'Poppins, sans-serif' }}>
