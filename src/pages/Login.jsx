@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, TextField, Button, Typography, Box, Paper, Avatar } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../components/Loader';
 
@@ -144,16 +144,16 @@ const Login = () => {
                     >
                         Sign In
                     </Button>
+                    
                 </Box>
-
+                <Link to="/forgot-password" style={{ color: '#1976d2', textDecoration: 'none' }}>
+        Forgot Password
+    </Link>
                 <Typography variant="body2" color="text.secondary">
                     Don’t have an account?
-                    <a href="#"
-                        onClick={handleSignup}
-
-                        style={{ color: '#1976d2', textDecoration: 'none' }}
-                    >Sign Up
-                    </a>
+                    <Link to="/signup" style={{ color: '#1976d2', textDecoration: 'none' }}>
+        Sign Up
+    </Link>
                 </Typography>
             </Paper>
         </Container>

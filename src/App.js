@@ -16,6 +16,7 @@ import axios from "axios";
 import Loader from "./components/Loader";
 import NotFound from "./pages/NotFound";
 import OrderPopup from "./components/OrderPopup";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
     const navigate = useNavigate();
@@ -205,6 +206,7 @@ function App() {
                     {/* <Route path="/picklelist" element={<PrivateRoute><PickleList onAddToCart={onAddToCart} /></PrivateRoute>} /> */}
                     <Route path="/cart" element={<PrivateRoute><CartList placeOrder={placeOrder} handleQuantityOrWeight={handleQuantityOrWeight} handleDeleteCartItem={handleDeleteCartItem} cartItems={cartItems?.products} totalPrice={cartItems.totalPrice} /></PrivateRoute>} />
                     <Route path="/orders" element={<PrivateRoute><OrdersList ordersList={orderList}/></PrivateRoute>} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
