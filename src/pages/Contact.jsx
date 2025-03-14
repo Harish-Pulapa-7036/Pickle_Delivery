@@ -31,7 +31,7 @@ const Contact = () => {
           <Box display="flex" alignItems="center" justifyContent="center" gap={1} mt={2}>
             <LocationOnIcon sx={{ color: "#d81b60" }} fontSize="large" />
             <Typography variant="body1" fontWeight={500} sx={{ fontFamily: "'Caveat', cursive", fontSize: "1.2rem" }}>
-              123 Pickle Street, Hyderabad, India
+              123 Pickle Street, Vijayawada, India
             </Typography>
           </Box>
           

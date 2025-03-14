@@ -67,6 +67,7 @@ const Header = ({ cartCount }) => {
                         :
                         <li><Link to="/signup" onClick={() => setMenuOpen(false)}>Signup</Link></li>}
                     <li><Link to="/orders" onClick={() => setMenuOpen(false)}>Your Orders</Link></li>
+                    <li><Link to="/policies" onClick={() => setMenuOpen(false)}>Policies</Link></li>
 
                     {/* <li>  </li> */}
                 </ul>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -17,6 +17,7 @@ import Loader from "./components/Loader";
 import NotFound from "./pages/NotFound";
 import OrderPopup from "./components/OrderPopup";
 import ForgotPassword from "./pages/ForgotPassword";
+import Policies from "./pages/Policies";
 
 function App() {
     const navigate = useNavigate();
@@ -26,14 +27,17 @@ function App() {
     const [orderList, setOrderList] = useState([]);
 
 
+    const location = useLocation();
+
     useEffect(() => {
         if (sessionStorage.getItem("token")) {
-            // navigate('/')
-            getCartItems();
-            getOrderList();
+            if (location.pathname === "/" || location.pathname === "/cart") {
+                getCartItems();
+            } else if (location.pathname === "/orders") {
+                getOrderList();
+            }
         }
-        // else navigate('/login')
-    }, [navigate])
+    }, [location.pathname]); 
 
     const getCartItems = async () => {
         setShowLoader(true);
@@ -207,6 +211,7 @@ function App() {
                     <Route path="/cart" element={<PrivateRoute><CartList placeOrder={placeOrder} handleQuantityOrWeight={handleQuantityOrWeight} handleDeleteCartItem={handleDeleteCartItem} cartItems={cartItems?.products} totalPrice={cartItems.totalPrice} /></PrivateRoute>} />
                     <Route path="/orders" element={<PrivateRoute><OrdersList ordersList={orderList}/></PrivateRoute>} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/policies" element={<Policies />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
