@@ -8,7 +8,7 @@ import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 const policies = [
     { 
         title: "Delivery Policy", 
-        description: "We ensure quick and safe delivery within 1-2 business days locally near Singh Nagar, Vijayawada. For the rest of the Telugu states, delivery will take 3-4 business days.",
+        description: "We ensure quick and safe delivery within 1-2 business days locally near Singh Nagar, Vijayawada. For the rest of the Telugu states, delivery will be done within 3-4 business days.",
         icon: <LocalShippingIcon color="primary" /> 
     },
     { 
