@@ -28,8 +28,8 @@ const OrderCard = ({ order }) => {
                         {order.orders.map((item, index) => (
                             <React.Fragment key={index}>
                                 <ListItem>
-                                    <ListItemText primary={item.productName} />
-                                    <Typography variant="body2" fontWeight="bold">₹{item.actualPrice}</Typography>
+                                    <ListItemText primary={`${item.productName} (Qty:${item.quantity},Wt:${item.weight})`} />
+                                    <Typography variant="body2" fontWeight="bold">{`₹${item.actualPrice}`}</Typography>
                                 </ListItem>
                                 {index < order.orders.length - 1 && <Divider />}
                             </React.Fragment>
