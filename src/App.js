@@ -19,6 +19,7 @@ import OrderPopup from "./components/OrderPopup";
 import ForgotPassword from "./pages/ForgotPassword";
 import Policies from "./pages/Policies";
 import Tutorial from "./pages/Tutorial";
+import OrderUpdate from "./pages/OrderUpdate";
 
 function App() {
     const navigate = useNavigate();
@@ -214,6 +215,8 @@ function App() {
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/policies" element={<Policies />} />
                     <Route path="/tutorial" element={<Tutorial />} />
+                    <Route path="/admin" element={<OrderUpdate />} />
+
 
                     <Route path="*" element={<NotFound />} />
                 </Routes>

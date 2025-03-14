@@ -22,6 +22,7 @@ const Header = ({ cartCount }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef();
     const token = sessionStorage.getItem("token")
+    const phoneNumber = sessionStorage.getItem("phoneNumber")
     // Close menu if user clicks outside of the menu
     // useEffect(() => {
     //     const handleClickOutside = (event) => {
@@ -63,12 +64,16 @@ const Header = ({ cartCount }) => {
                     <li><Link to="/about" onClick={() => setMenuOpen(false)}>About</Link></li>
                     <li><Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link></li>
                     {token ?
-                        <li><Link to="/login" onClick={() => { setMenuOpen(false); sessionStorage.removeItem('token') }}>LogOut</Link></li>
+                        <li><Link to="/login" onClick={() => { setMenuOpen(false); sessionStorage.removeItem('token');sessionStorage.removeItem('phoneNumber') }}>LogOut</Link></li>
                         :
                         <li><Link to="/signup" onClick={() => setMenuOpen(false)}>Signup</Link></li>}
                     <li><Link to="/orders" onClick={() => setMenuOpen(false)}>Your Orders</Link></li>
                     <li><Link to="/policies" onClick={() => setMenuOpen(false)}>Policy</Link></li>
                     <li><Link to="/tutorial" onClick={() => setMenuOpen(false)}>Tutorial</Link></li>
+                    {phoneNumber && phoneNumber !== "undefined" ?
+                        <li><Link to="/admin" onClick={() => { setMenuOpen(false); }}>Admin</Link></li> : null
+                        
+                       }
 
 
                     {/* <li>  </li> */}
