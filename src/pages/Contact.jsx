@@ -31,14 +31,17 @@ const Contact = () => {
           <Box display="flex" alignItems="center" justifyContent="center" gap={1} mt={2}>
             <LocationOnIcon sx={{ color: "#d81b60" }} fontSize="large" />
             <Typography variant="body1" fontWeight={500} sx={{ fontFamily: "'Caveat', cursive", fontSize: "1.2rem" }}>
-              123 Pickle Street, Vijayawada, India
+              PNT Colony, Smile Hospital Road, Ajith singh nagar, Vijayawada, India.
             </Typography>
           </Box>
           
           <Box display="flex" alignItems="center" justifyContent="center" gap={1} mt={2}>
             <PhoneIcon sx={{ color: "#d81b60" }} fontSize="large" />
             <Typography variant="body1" fontWeight={500} sx={{ fontFamily: "'Caveat', cursive", fontSize: "1.2rem" }}>
-              +91 98765 43210
+              +91 8919920442
+            </Typography>
+            <Typography variant="body1" fontWeight={500} sx={{ fontFamily: "'Caveat', cursive", fontSize: "1.2rem" }}>
+              +91 6304329443
             </Typography>
           </Box>
 
@@ -53,9 +56,9 @@ const Contact = () => {
             <IconButton href="https://www.youtube.com/@padmajapickles" target="_blank" sx={{ color: "#ff0000" }}>
               <YouTubeIcon fontSize="large" />
             </IconButton>
-            <IconButton href="https://www.instagram.com/padmajapickles" target="_blank" sx={{ color: "#E1306C" }}>
+            {/* <IconButton href="https://www.instagram.com/padmajapickles" target="_blank" sx={{ color: "#E1306C" }}>
               <InstagramIcon fontSize="large" />
-            </IconButton>
+            </IconButton> */}
           </Box>
         </CardContent>
       </Card>
