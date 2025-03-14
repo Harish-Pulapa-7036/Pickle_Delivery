@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box, Paper, Avatar } from '@mui/material';
+import { Container, TextField, Button, Typography, Box, Paper, Avatar, Alert } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -10,6 +10,8 @@ const ForgotPassword = () => {
     const [phoneError, setPhoneError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [showLoader, setShowLoader] = useState(false);
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -28,11 +30,13 @@ const ForgotPassword = () => {
         try {
             const response = await axios.post('https://pickle-backend-2xil.onrender.com/api/v1/forgot-password', formData);
             setShowLoader(false);
-            alert(response.data.message || 'Password reset successful!');
+            setMessage(response.data.message || 'Password reset successful');
+            setError('');
             navigate('/login');
         } catch (error) {
             setShowLoader(false);
-            alert(error.response?.data?.message || 'Password reset failed, please try again.');
+            setError(error.response?.data?.message || 'Password reset failed, please try again.');
+            setMessage('');
         }
     };
 
@@ -49,69 +53,74 @@ const ForgotPassword = () => {
 
     return (
         <>
-        <Container component="main" maxWidth="xs" className="invisibleScroller">
-            <Paper elevation={6} sx={{ p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)' }}>
-                <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography variant="h5" component="h1" fontWeight="bold" gutterBottom>
-                    Forgot Password
-                </Typography>
-                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2, width: '100%' }}>
-                    <TextField
-                        margin="normal"
-                        fullWidth
-                        label="Phone Number"
-                        name="phoneNumber"
-                        type="text"
-                        value={formData.phoneNumber}
-                        onChange={handleChange}
-                        required
-                        inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "[0-9]*" }}
-                        InputProps={{ sx: { borderRadius: '12px' } }}
-                    />
-                    {phoneError && <Typography color="error" sx={{ mt: 1 }}>{phoneError}</Typography>}
-                    <TextField
-                        margin="normal"
-                        fullWidth
-                        label="New Password"
-                        name="password"
-                        type="password"
-                        required
-                        value={formData.password}
-                        onChange={handleChange}
-                        variant="outlined"
-                        InputProps={{ sx: { borderRadius: '12px' } }}
-                    />
-                    <TextField
-                        margin="normal"
-                        fullWidth
-                        label="Confirm Password"
-                        name="confirmPassword"
-                        type="password"
-                        required
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        variant="outlined"
-                        InputProps={{ sx: { borderRadius: '12px' } }}
-                    />
-                    {passwordError && <Typography color="error" sx={{ mt: 1 }}>{passwordError}</Typography>}
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2, p: 1.5, borderRadius: '12px', fontWeight: 'bold', textTransform: 'none' }}
-                    >
-                        Reset Password
-                    </Button>
-                </Box>
-                <Typography variant="body2" color="text.secondary">
-                    Remember your password?
-                    <a onClick={() => navigate('/login')} style={{ color: '#1976d2', textDecoration: 'none' }}> Sign In</a>
-                </Typography>
-            </Paper>
-        </Container>
-        <Loader showLoader={showLoader} />
+            <Loader showLoader={showLoader} />
+            <Container component="main" maxWidth="xs">
+                <Paper elevation={6} sx={{ p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
+                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography variant="h5" component="h1">
+                        Forgot Password
+                    </Typography>
+                    {message && <Alert severity="success" sx={{ mt: 2 }}>{message}</Alert>}
+                    {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2, width: '100%' }}>
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            label="Phone Number"
+                            name="phoneNumber"
+                            type="text"
+                            value={formData.phoneNumber}
+                            onChange={handleChange}
+                            required
+                            inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "[0-9]*" }}
+                            InputProps={{ sx: { borderRadius: '12px' } }}
+                        />
+                        {phoneError && <Alert severity="error" sx={{ mt: 1 }}>{phoneError}</Alert>}
+                        
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            label="New Password"
+                            name="password"
+                            type="password"
+                            required
+                            value={formData.password}
+                            onChange={handleChange}
+                            variant="outlined"
+                            InputProps={{ sx: { borderRadius: '12px' } }}
+                        />
+                        
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            label="Confirm Password"
+                            name="confirmPassword"
+                            type="password"
+                            required
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            variant="outlined"
+                            InputProps={{ sx: { borderRadius: '12px' } }}
+                        />
+                        {passwordError && <Alert severity="error" sx={{ mt: 2 }}>{passwordError}</Alert>}
+                        
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2, p: 1.5, borderRadius: '12px', fontWeight: 'bold', textTransform: 'none' }}
+                        >
+                            Reset Password
+                        </Button>
+                    </Box>
+                    <Typography variant="body2" align="center" color="text.secondary">
+                        Remember your password?
+                        <a onClick={() => navigate('/login')} style={{ marginLeft: 5, color: 'primary.main', cursor: 'pointer' }}>Log in</a>
+                    </Typography>
+                </Paper>
+            </Container>
         </>
     );
 };

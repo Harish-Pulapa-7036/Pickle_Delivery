@@ -4,17 +4,45 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from 'react-router-dom';
+import { CheckCircle, HourglassEmpty } from "@mui/icons-material";
 
 const OrderCard = ({ order }) => {
     const [expanded, setExpanded] = useState(false);
     return (
-        <Card sx={{ maxWidth: 400, margin: 'auto', mt: 2, boxShadow: 3, borderRadius: 3 }}>
+        <Card
+            sx={{
+                maxWidth: 400,
+                margin: "auto",
+                mt: 2,
+                boxShadow: 3,
+                borderRadius: 3,
+            }}
+        >
             <CardContent>
-                <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
+                <Typography
+                    variant="h6"
+                    fontWeight="bold"
+                    color="primary"
+                    gutterBottom
+                    sx={{
+                        display:"flex",
+                        justifyContent:"center",
+                        alignItems:"center"
+                    }}
+                >
                     🛒 Order #{order.orderId} - {order.orderStatus}
+                    {order.orderStatus === "Delivered" ? (
+                        <CheckCircle color="success" style={{ marginLeft: 8 }} />
+                    ) : order.orderStatus === "Pending" ? (
+                        <HourglassEmpty color="warning" style={{ marginLeft: 8 }} />
+                    ) : null}
                 </Typography>
 
-                <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                >
                     <Typography variant="body1" fontWeight="bold">
                         Items Summary
                     </Typography>
@@ -28,8 +56,13 @@ const OrderCard = ({ order }) => {
                         {order.orders.map((item, index) => (
                             <React.Fragment key={index}>
                                 <ListItem>
-                                    <ListItemText primary={`${item.productName} (Qty-${item.quantity},Wt-${item.weight})`} />
-                                    <Typography variant="body2" fontWeight="bold">{`₹${item.actualPrice}`}</Typography>
+                                    <ListItemText
+                                        primary={`${item.productName} (Qty-${item.quantity},Wt-${item.weight})`}
+                                    />
+                                    <Typography
+                                        variant="body2"
+                                        fontWeight="bold"
+                                    >{`₹${item.actualPrice}`}</Typography>
                                 </ListItem>
                                 {index < order.orders.length - 1 && <Divider />}
                             </React.Fragment>
@@ -72,26 +105,26 @@ const OrdersList = ({ ordersList }) => {
                 justifyContent="center"
                 p={4}
             >
-                <Typography variant="h3"  className="cart-text" 
-               sx={{
-                display:"flex",
-                flexDirection:"column",
-                alignItems:"center",
-                justifyContent:"center"
-               }}
+                <Typography variant="h3" className="cart-text"
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}
                 >
-                Your cart feels lonely... 🛒💨 
+                    Your cart feels lonely... 🛒💨
 
                 </Typography>
-                <Typography variant="h3" p={4} className="cart-text" 
-               sx={{
-                display:"flex",
-                flexDirection:"column",
-                alignItems:"center",
-                justifyContent:"center"
-               }}
+                <Typography variant="h3" p={4} className="cart-text"
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}
                 >
-               Place an order to make it happy! 😊
+                    Place an order to make it happy! 😊
 
                 </Typography>
                 <Button

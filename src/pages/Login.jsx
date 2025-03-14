@@ -42,7 +42,9 @@ const Login = () => {
             });
             
             const token = response.data.token;
+            const phoneNumber = response.data.phoneNumber;
             sessionStorage.setItem('token', token);
+            sessionStorage.setItem('phoneNumber', phoneNumber);
             setMessage('Signin successful! Redirecting...');
             setTimeout(() => navigate('/'), 2000);
         } catch (error) {
