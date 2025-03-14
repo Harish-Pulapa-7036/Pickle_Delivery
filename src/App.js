@@ -18,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import OrderPopup from "./components/OrderPopup";
 import ForgotPassword from "./pages/ForgotPassword";
 import Policies from "./pages/Policies";
+import Tutorial from "./pages/Tutorial";
 
 function App() {
     const navigate = useNavigate();
@@ -212,6 +213,8 @@ function App() {
                     <Route path="/orders" element={<PrivateRoute><OrdersList ordersList={orderList}/></PrivateRoute>} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/policies" element={<Policies />} />
+                    <Route path="/tutorial" element={<Tutorial />} />
+
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
