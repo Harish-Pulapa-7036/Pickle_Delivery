@@ -11,7 +11,7 @@ const HeaderText = () => {
             onClick={() => navigate("/")}
             className="logo-heading"
         >
-            <img src={'/images/pickle_logo.jpeg'} alt="PP Logo" className="logo" />
+            <img src={'/images/logo-pickle.jpeg'} alt="PP Logo" className="logo" />
             Padmaja Pickles
         </h1>
     );
