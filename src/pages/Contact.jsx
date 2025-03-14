@@ -40,10 +40,16 @@ const Contact = () => {
             <Typography variant="body1" fontWeight={500} sx={{ fontFamily: "'Caveat', cursive", fontSize: "1.2rem" }}>
               +91 8919920442
             </Typography>
+            
+          </Box>
+          <Box display="flex" alignItems="center" justifyContent="center" gap={1} mt={2}>
+            <PhoneIcon sx={{ color: "#d81b60" }} fontSize="large" />
             <Typography variant="body1" fontWeight={500} sx={{ fontFamily: "'Caveat', cursive", fontSize: "1.2rem" }}>
               +91 6304329443
             </Typography>
+            
           </Box>
+       
 
           <Box display="flex" alignItems="center" justifyContent="center" gap={1} mt={2}>
             <EmailIcon sx={{ color: "#d81b60" }} fontSize="large" />
