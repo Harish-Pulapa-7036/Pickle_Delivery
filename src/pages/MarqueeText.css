@@ -1,0 +1,25 @@
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    background-color: #20201f; /* Yellow background */
+    /* padding: 10px 0; */
+    position: relative;
+  }
+  
+  .marquee-text {
+    display: inline-block;
+    font-weight: bold;
+    color: #f5eeee;
+    white-space: nowrap;
+    animation: marquee-scroll 15s linear infinite;
+  }
+  
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  

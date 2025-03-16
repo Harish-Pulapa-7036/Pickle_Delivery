@@ -20,6 +20,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Policies from "./pages/Policies";
 import Tutorial from "./pages/Tutorial";
 import OrderUpdate from "./pages/OrderUpdate";
+import MarqueeText from "./pages/MarqueeText";
 
 function App() {
     const navigate = useNavigate();
@@ -202,6 +203,7 @@ function App() {
             // backgroundImage: "url('/images/background_pickle.jpg')"
         }}>
             <Header cartCount={cartItems?.products?.length} />
+            <MarqueeText /> 
             <main className="main-content">
                 <Routes>
                     <Route path="/" element={<PrivateRoute><PickleList onAddToCart={onAddToCart} /></PrivateRoute>} />
@@ -216,8 +218,6 @@ function App() {
                     <Route path="/policies" element={<Policies />} />
                     <Route path="/tutorial" element={<Tutorial />} />
                     <Route path="/admin" element={<OrderUpdate />} />
-
-
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
