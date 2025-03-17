@@ -52,6 +52,7 @@ const Tutorial = () => {
               width: "100%",
               maxWidth: "180px",
               borderRadius: "10px",
+              border: "4px solid white"
             }}
           />
         </Box>
@@ -70,6 +71,7 @@ const Tutorial = () => {
               width: "100%",
               maxWidth: "180px",
               borderRadius: "10px",
+              border: "4px solid white"
             }}
           />
         </Box>
