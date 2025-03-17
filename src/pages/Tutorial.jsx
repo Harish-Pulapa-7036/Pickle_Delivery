@@ -40,7 +40,7 @@ const Tutorial = () => {
         {/* Video 1: How to Signup and Login */}
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h6" sx={{ mb: 1 }}>
-            How to Signup and Login
+          How to Signup and Login? 🔑😊
           </Typography>
           <video
             ref={video1Ref}
@@ -60,7 +60,7 @@ const Tutorial = () => {
         {/* Video 2: How to Place an Order */}
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h6" sx={{ mb: 1 }}>
-            How to Place an Order
+          🛒 How to Place an Order? 📦
           </Typography>
           <video
             ref={video2Ref}
