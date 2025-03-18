@@ -61,6 +61,10 @@ function App() {
 
         }
     }
+    const playSound = () => {
+        const audio = new Audio('/sounds/add-cart.wav');
+        audio.play();
+    };
     const onAddToCart = async (productName, pricePerKg) => {
         setShowLoader(true)
         let body = {
@@ -77,7 +81,7 @@ function App() {
                     token: sessionStorage.getItem('token')   // <- Add the token in headers
                 }
             })
-            console.log(response);
+            playSound()
             setCartItems(response.data.cart)
             setShowLoader(false)
         } catch (error) {

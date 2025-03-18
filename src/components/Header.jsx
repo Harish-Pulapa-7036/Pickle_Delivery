@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
+import { motion } from "framer-motion";
 const HeaderText = () => {
     const navigate = useNavigate();
 
@@ -40,6 +40,14 @@ const Header = ({ cartCount }) => {
     //     return () => document.removeEventListener('mousedown', handleClickOutside);
     // }, [menuOpen]);
     const navigate = useNavigate()
+    const [animate, setAnimate] = useState(false);
+
+    useEffect(() => {
+        if (cartCount > 0) {
+            setAnimate(true);
+            setTimeout(() => setAnimate(false), 600); // Reset animation after 600ms
+        }
+    }, [cartCount]);
     return (
         <header className="header">
             <HeaderText />
@@ -50,7 +58,13 @@ const Header = ({ cartCount }) => {
                 alignItems: "center",
                 justifyContent: "center",
             }} onClick={() => { setMenuOpen(false) }}>
+                <motion.div
+                animate={animate ? { rotate: [0, 15, -15, 10, -10, 0], scale: [1, 1.2, 1] } : {}}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+            >
                 <ShoppingCartIcon />
+            </motion.div>
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
                 {cartCount > 0 && <span className="cart-count">{cartCount}</span>
                 }
             </Link>
